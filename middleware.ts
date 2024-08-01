@@ -6,7 +6,6 @@ const isGuestRoute = (pathname: string) => {
   return pathname === "/login";
 };
  
-// This function can be marked `async` if using `await` inside
 export default async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
   if (isGuestRoute(pathname) && getToken()) {
@@ -15,6 +14,7 @@ export default async function middleware(request: NextRequest) {
   if (!isGuestRoute(pathname) && !getToken()) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
+  return NextResponse.next();
 }
  
 export const config = {
