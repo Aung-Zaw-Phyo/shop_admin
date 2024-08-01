@@ -1,17 +1,20 @@
 import React from 'react'
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
+import { DataTableDemo } from '@/components/templates/products/DataTableDemo';
 
 const page = () => {
   return (
     <div>
-      <div className='mb-4 flex justify-between'>
+      {/* <div className='mb-4 flex justify-between'>
         <h1 className="text-xl">Products</h1>
         <div>
           <Button variant="contained">Create</Button>
         </div>
-      </div>
-      <table className=' border border-slate-500 border-separate border-spacing-2 w-full'>
+      </div> */}
+
+
+      {/* <table className=' border border-slate-500 border-separate border-spacing-2 w-full'>
         <thead>
           <tr>
             <th className='text-start'>#</th>
@@ -61,7 +64,9 @@ const page = () => {
             <td className='text-center'>1 day ago</td>
           </tr>
         </tbody>
-      </table>
+      </table> */}
+  
+      <DataTableDemo/>
     </div>
   )
 }
