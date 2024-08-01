@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react'
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import { login } from '@/app/(auth)/login/_action';
+import { login } from '@/app/(auth)/_action';
 import useServerFormState from '@/hooks/useServerFormState';
 import { useRouter } from 'next/navigation';
   

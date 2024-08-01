@@ -1,8 +1,10 @@
 import React, {ReactNode} from 'react'
 import Drawer from './Drawer'
 import PageList from './PageList';
+import DropdownUser from './DropdownUser';
 
 const MainWrapper = ({children,}: Readonly<{children: React.ReactNode;}>) => {
+
   return (
         <div className="flex h-[100vh] overflow-hidden "> 
             <div className="bg-[#233044] text-white hidden md:block overflow-y-scroll overflow-x-hidden no-scrollbar">
@@ -13,13 +15,7 @@ const MainWrapper = ({children,}: Readonly<{children: React.ReactNode;}>) => {
                     <div>
                         <Drawer/>
                     </div>
-                    <div className="flex justify-center items-center gap-3">
-                        <div className="text-end">
-                            <div className="">Aung Zaw Phyo</div>
-                            <div className="text-sm text-gray-500">Admin</div>
-                        </div>
-                        <img className="rounded-full" width={50} height={50} src="https://react-demo.tailadmin.com/assets/user-01-b007ff3f.png" alt="" />
-                    </div>
+                    <DropdownUser/>
                 </div>
                 <div className="p-6">
                     {children}

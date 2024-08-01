@@ -37,8 +37,8 @@ const PageList: React.FC<PageListProps> = ({ onToggle = null }) => {
             </div>
             <List>
                 {routes.map((route, index) => (
-                <Link href={route.uri}>
-                    <ListItem key={route.uri} disablePadding onClick={handleToggle.bind(null, false)}>
+                <Link href={route.uri} key={route.uri}>
+                    <ListItem disablePadding onClick={handleToggle.bind(null, false)}>
                         <ListItemButton>
                         <ListItemIcon>
                             {index % 2 === 0 ? <InboxIcon className='text-white' /> : <MailIcon className='text-white' />}
