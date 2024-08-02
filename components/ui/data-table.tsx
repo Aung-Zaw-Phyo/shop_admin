@@ -29,23 +29,36 @@ import {
     DropdownMenuContent,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { paginate_items_limit } from "@/constants"
+import Link from "next/link"
+import { useRouter } from "next/navigation"
 
 
+interface Meta {
+    totalItems: number,
+    itemCount: number,
+    itemsPerPage: number,
+    totalPages: number,
+    currentPage: number
+}
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
-  data: TData[]
+  data: TData[],
+  meta: Meta
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
+  meta
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([])
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>(
     []
   )
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
+  const router = useRouter();
 
   const table = useReactTable({
     data,
@@ -57,7 +70,7 @@ export function DataTable<TData, TValue>({
     },
     initialState: {
         pagination: {
-          pageSize: 2, 
+          pageSize: paginate_items_limit,  
         },
     },
     getCoreRowModel: getCoreRowModel(),
@@ -69,12 +82,16 @@ export function DataTable<TData, TValue>({
     onColumnVisibilityChange: setColumnVisibility,
   })
 
+  const onPaginate = (pageNumber: number) => {
+    router.push('/categories?page=' + pageNumber);
+  }
+
   return (
     <>
         <div className='flex justify-between items-center'>
             <div className="flex items-center py-4">
                 <Input
-                placeholder="Filter users..."
+                placeholder="Filter ..."
                 value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
                 onChange={(event) =>
                     table.getColumn("name")?.setFilterValue(event.target.value)
@@ -158,23 +175,28 @@ export function DataTable<TData, TValue>({
         </div>
 
 
-        <div className="flex items-center justify-end space-x-2 py-4">
-            <Button
-            variant="outline"
-            size="sm"
-            onClick={() => table.previousPage()}
-            disabled={!table.getCanPreviousPage()}
-            >
-            Previous
-            </Button>
-            <Button
-            variant="outline"
-            size="sm"
-            onClick={() => table.nextPage()}
-            disabled={!table.getCanNextPage()}
-            >
-            Next
-            </Button>
+        <div className="flex items-center justify-between">
+            <div>
+                Showing 1 to {meta.itemCount} of {meta.totalItems} entries
+            </div>
+            <div className="flex items-center justify-end space-x-2 py-4">
+                <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={onPaginate.bind(null, meta.currentPage - 1)}
+                    disabled={meta.currentPage <= 1}
+                >
+                    Previous
+                </Button>
+                <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={onPaginate.bind(null, meta.currentPage + 1)}
+                    disabled={meta.currentPage == meta.totalPages}
+                >
+                    Next
+                </Button>
+            </div>
         </div>
     </>
   )

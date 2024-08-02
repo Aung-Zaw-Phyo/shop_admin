@@ -1,10 +1,12 @@
 "use server"
 
+import { paginate_items_limit } from "@/constants";
+
 const base_url = process.env.NEXT_PUBLIC_BACKOFFICE_API;
 
-export const getCategories = async () => {
+export const getCategories = async (page: number|string) => {
     try {
-        const response = await fetch(base_url + '/categories', {
+        const response = await fetch(base_url + `/categories?limit=${paginate_items_limit}&page=${page}`, {
             method: "GET",
             cache: "no-store",
             headers: {
