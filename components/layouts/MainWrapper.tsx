@@ -11,7 +11,7 @@ const MainWrapper = ({children,}: Readonly<{children: React.ReactNode;}>) => {
                 <PageList/>
             </div>
             <div className="w-full overflow-y-scroll no-scrollbar">
-                <div className="flex justify-between items-center py-3 px-6 sticky top-0 bg-white shadow-sm">
+                <div className="flex justify-between items-center py-3 px-6 sticky top-0 z-50 bg-white shadow-sm">
                     <div>
                         <Drawer/>
                     </div>
