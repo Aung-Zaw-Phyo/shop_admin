@@ -13,17 +13,19 @@ export default function useServerFormState(
   useEffect(() => {
     // show success messages
     if(state && state.success === true) {
+      const messages = state.messages;
+      for (let i = 0; i < messages.length; i++) {
         toast({
           className: cn("mb-1"),
-          title: state.message,
+          title: messages[i],
         });
+      }
     }
 
     // show error messages
     if(state && state.success === false) {
-      const messages = state.message;
+      const messages = state.messages;
       for (let i = 0; i < messages.length; i++) {
-        console.log(messages[i]);
         toast({
           className: cn("mb-1 !text-red-600"),
           title: messages[i],
