@@ -15,7 +15,11 @@ const page = async ({ searchParams }: {searchParams: { [key: string]: string }})
                 <Link href='/categories/create'><Button className='uppercase'>Create</Button></Link>
             </div>
             <div className='p-4 bg-white rounded'>
-                <DataTable columns={columns} data={data.items} meta={data.meta}/>
+                <DataTable 
+                    columns={columns} 
+                    data={data.items} 
+                    meta={data.meta}
+                />
             </div>
         </>
     )

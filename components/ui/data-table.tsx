@@ -45,13 +45,15 @@ interface Meta {
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[],
-  meta: Meta
+  meta: Meta,
+  filterColumn?: string;
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
-  meta
+  meta,
+  filterColumn = 'name'
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([])
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>(
@@ -92,9 +94,9 @@ export function DataTable<TData, TValue>({
             <div className="flex items-center py-4">
                 <Input
                 placeholder="Filter ..."
-                value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
+                value={(table.getColumn(filterColumn)?.getFilterValue() as string) ?? ""}
                 onChange={(event) =>
-                    table.getColumn("name")?.setFilterValue(event.target.value)
+                    table.getColumn(filterColumn)?.setFilterValue(event.target.value)
                 }
                 className="max-w-sm"
                 />
