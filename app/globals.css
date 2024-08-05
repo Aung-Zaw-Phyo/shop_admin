@@ -44,3 +44,14 @@ body {
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
 }
+
+
+.css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input {
+  height: 2.6em !important;
+  padding: 2.5px 14px !important;
+}
+
+
+.css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root {
+  line-height: 1em !important;
+}

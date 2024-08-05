@@ -12,7 +12,7 @@ export default function useServerFormState(
 
   useEffect(() => {
     // show success messages
-    if(state && state.success === true) {
+    if (state && state.success === true) {
       const messages = state.messages;
       for (let i = 0; i < messages.length; i++) {
         toast({
@@ -23,7 +23,7 @@ export default function useServerFormState(
     }
 
     // show error messages
-    if(state && state.success === false) {
+    if (state && state.success === false) {
       const messages = state.messages;
       for (let i = 0; i < messages.length; i++) {
         toast({

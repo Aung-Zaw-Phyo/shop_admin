@@ -14,7 +14,7 @@ const page = async () => {
                 <Link href='/categories/create'><Button className='uppercase'>Create</Button></Link>
             </div>
             <div className='p-4 bg-white rounded'>
-                <DataTable columns={columns} data={data}/>
+                {/* <DataTable columns={columns} data={data}/> */}
             </div>
         </>
     )
