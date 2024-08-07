@@ -1,3 +1,5 @@
+import { getToken } from "./helper";
+
 const base_url = process.env.NEXT_PUBLIC_BACKOFFICE_API;
 
 interface Response {
@@ -12,24 +14,33 @@ interface ApiProps {
     uri: string;
     method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE",
     headers?: object,
-    payload?: object,
+    payload?: object | FormData,
 }
 
 class Api {
     static async fetch({uri, method, headers = {}, payload = {}}: ApiProps): Promise<Response> {
         try {
+            const isFormData = payload instanceof FormData;
+            const body = isFormData ? payload : JSON.stringify(payload);
+
+            const headersConfig: { [key: string]: string; } = {
+                "Accept": "application/json",
+                'Cache-Control': 'no-store',
+                "Authorization": "Bearer " + getToken(),
+                ...headers,
+            }; 
+            if(!isFormData) {
+                headersConfig["Content-Type"] = "application/json";
+            }
+
             const response = await fetch(base_url + uri, {
                 method: method,
                 cache: 'no-store',
-                headers: {
-                    Accept: "application/json",
-                    "Content-Type": "application/json",
-                    'Cache-Control': 'no-store',
-                    ...headers,
-                },
-                body: method === "GET"  ? null : JSON.stringify(payload),
+                headers: headersConfig,
+                body: method === "GET" ? null : body,
             });
             const result = await response.json();
+
             const keys = 
                 !("success" in result)
                 !("messages" in result)
@@ -39,6 +50,7 @@ class Api {
             if (result && keys) {
                 throw new Error("Server Error Please Contact Admin.");
             }
+            
             return result;
         } catch (error) {
             console.log("🚀 ~ Api ~ Error :", error);
