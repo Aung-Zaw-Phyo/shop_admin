@@ -4,11 +4,11 @@ import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { logout } from '@/app/(auth)/_action';
 
-const DropdownUser = () => {
+const DropdownUser = ({ user }: { user: { name: string, email: string, image: string } }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
-
   const trigger = useRef<any>(null);
   const dropdown = useRef<any>(null);
+
 
   // close on click outside
   useEffect(() => {
@@ -50,19 +50,23 @@ const DropdownUser = () => {
       >
         <span className="hidden text-right lg:block">
           <span className="block text-sm font-medium text-black dark:text-white">
-            Aung Zaw Phyo
+            {user.name}
           </span>
           <span className="block text-xs">Admin</span>
         </span>
 
         <span className="h-12 w-12 rounded-full">
-          <img src='https://react-demo.tailadmin.com/assets/user-01-b007ff3f.png' alt="User" />
+          {
+            user.image ?
+              <img className="h-12 w-12 rounded-full" src={user.image} alt="User" />
+              :
+              <img className="h-12 w-12 rounded-full" src={`https://ui-avatars.com/api/?background=222E41&color=fff&name=${user.name}`} alt="User" />
+          }
         </span>
 
         <svg
-          className={`hidden fill-current sm:block ${
-            dropdownOpen ? 'rotate-180' : ''
-          }`}
+          className={`hidden fill-current sm:block ${dropdownOpen ? 'rotate-180' : ''
+            }`}
           width="12"
           height="8"
           viewBox="0 0 12 8"
@@ -83,9 +87,8 @@ const DropdownUser = () => {
         ref={dropdown}
         onFocus={() => setDropdownOpen(true)}
         onBlur={() => setDropdownOpen(false)}
-        className={`absolute z-50 right-0 mt-4 flex w-62.5 flex-col rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark ${
-          dropdownOpen === true ? 'block' : 'hidden'
-        }`}
+        className={`absolute z-50 right-0 mt-4 flex w-62.5 flex-col rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark ${dropdownOpen === true ? 'block' : 'hidden'
+          }`}
       >
         <ul className="flex flex-col gap-5 p-5 border-b border-stroke px-6 py-7.5 dark:border-strokedark">
           <li>
@@ -160,9 +163,9 @@ const DropdownUser = () => {
             </Link>
           </li>
         </ul>
-        <button 
-            className="flex items-center gap-3.5 py-4 px-6 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
-            onClick={onLogout}
+        <button
+          className="flex items-center gap-3.5 py-4 px-6 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
+          onClick={onLogout}
         >
           <svg
             className="fill-current"
