@@ -13,21 +13,22 @@ import Link from 'next/link';
 
 interface PageListProps {
     onToggle?: (newOpen: boolean) => () => void;
-  }
+}
 
-  const routes = [
-    {name: 'Dashboard', uri: '/'},
-    {name: 'Products', uri: '/products'},
-    {name: 'Categories', uri: '/categories'},
-    {name: 'Variants', uri: '/variants'},
-    {name: 'Orders', uri: '/orders'},
-    {name: 'Users', uri: '/users'},
-  ]
+const routes = [
+    { name: 'Dashboard', uri: '/' },
+    { name: 'Products', uri: '/products' },
+    { name: 'Categories', uri: '/categories' },
+    { name: 'Variants', uri: '/variants' },
+    { name: 'Orders', uri: '/orders' },
+    { name: 'Users', uri: '/users' },
+    { name: 'Admins', uri: '/admins' },
+]
 
 const PageList: React.FC<PageListProps> = ({ onToggle = null }) => {
     const handleToggle = (newOpen: boolean) => {
         if (onToggle) {
-          onToggle(newOpen)();
+            onToggle(newOpen)();
         }
     };
     return (
@@ -37,29 +38,29 @@ const PageList: React.FC<PageListProps> = ({ onToggle = null }) => {
             </div>
             <List>
                 {routes.map((route, index) => (
-                <Link href={route.uri} key={route.uri}>
-                    <ListItem disablePadding onClick={handleToggle.bind(null, false)}>
-                        <ListItemButton>
-                        <ListItemIcon>
-                            {index % 2 === 0 ? <InboxIcon className='text-white' /> : <MailIcon className='text-white' />}
-                        </ListItemIcon>
-                        <ListItemText primary={route.name} />
-                        </ListItemButton>
-                    </ListItem>
-                </Link>
+                    <Link href={route.uri} key={route.uri}>
+                        <ListItem disablePadding onClick={handleToggle.bind(null, false)}>
+                            <ListItemButton>
+                                <ListItemIcon>
+                                    {index % 2 === 0 ? <InboxIcon className='text-white' /> : <MailIcon className='text-white' />}
+                                </ListItemIcon>
+                                <ListItemText primary={route.name} />
+                            </ListItemButton>
+                        </ListItem>
+                    </Link>
                 ))}
             </List>
             <Divider />
             <List>
                 {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                <ListItem key={text} disablePadding>
-                    <ListItemButton>
-                    <ListItemIcon>
-                        {index % 2 === 0 ? <InboxIcon className='text-white' /> : <MailIcon className='text-white'/>}
-                    </ListItemIcon>
-                    <ListItemText primary={text} />
-                    </ListItemButton>
-                </ListItem>
+                    <ListItem key={text} disablePadding>
+                        <ListItemButton>
+                            <ListItemIcon>
+                                {index % 2 === 0 ? <InboxIcon className='text-white' /> : <MailIcon className='text-white' />}
+                            </ListItemIcon>
+                            <ListItemText primary={text} />
+                        </ListItemButton>
+                    </ListItem>
                 ))}
             </List>
         </Box>
