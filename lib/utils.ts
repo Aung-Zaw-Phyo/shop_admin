@@ -9,9 +9,15 @@ export function objectToFormData(obj: Record<string, any>): FormData {
   const formData = new FormData();
 
   Object.keys(obj).forEach(key => {
-      if(obj[key] != '') {
-        formData.append(key, obj[key]);
-      }
+        if(typeof obj[key] === 'object') {
+            for (const k of Object.keys(obj[key])) {
+                formData.append(key, obj[key][k]);
+            }
+            return;
+        }
+        if(obj[key] != '') {
+            formData.append(key, obj[key]);
+        }
   });
 
   return formData;

@@ -12,19 +12,28 @@ import {
 import { MoreHorizontal, ArrowUpDown, Edit, Trash } from "lucide-react"
 import Link from "next/link"
 import useServerFormState from "@/hooks/useServerFormState"
-import { deleteCategory } from "@/app/(dashboard)/categories/_action"
 import { useEffect } from "react"
 import { useRouter } from "next/navigation"
+import { deleteProduct } from "@/app/(dashboard)/products/_action"
+import { Category } from "./category-columns"
 
-
-export type Category = {
-    id: number
+export type Image = {
+    id: number,
     name: string,
+}
+
+export type Product = {
+    id: number,
+    name: string,
+    description: string,
+    price: number,
+    categories: Category[],
+    images: Image[];
     createdAt: string,
     updatedAt: string,
 }
 
-export const categoryColumns: ColumnDef<Category>[] = [
+export const productColumns: ColumnDef<Product>[] = [
     {
         accessorKey: "name",
         header: ({ column }) => {
@@ -38,6 +47,26 @@ export const categoryColumns: ColumnDef<Category>[] = [
                 </Button>
             )
         },
+        cell: ({ row }) => {
+            const name = row.getValue('name') as string;
+            return <p className="px-3">{name}</p>;
+        }
+    },
+    {
+        accessorKey: "description",
+        header: "Description",
+    },
+    {
+        accessorKey: "price",
+        header: "Price",
+    },
+    {
+        accessorKey: "images",
+        header: "Image",
+        cell: ({ row }) => {
+            const images = row.getValue('images') as Image[];
+            return images && images[0] ? <img src={images[0].name} width={60} className="rounded" alt="Product Image" /> : null;
+        }
     },
     {
         accessorKey: "createdAt",
@@ -60,9 +89,19 @@ export const categoryColumns: ColumnDef<Category>[] = [
     },
     {
         accessorKey: "updatedAt",
-        header: "Updated At",
+        header: ({ column }) => {
+            return (
+                <Button
+                    variant="ghost"
+                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                >
+                    Updated At
+                    <ArrowUpDown className="ml-2 h-4 w-4" />
+                </Button>
+            )
+        },
         cell: ({ row }) => {
-            const date = new Date(row.getValue('updatedAt'));
+            const date = new Date(row.getValue('createdAt'));
             const formatted = date.toLocaleString();
             return <div className='font-medium'>{formatted}</div>
         }
@@ -70,12 +109,12 @@ export const categoryColumns: ColumnDef<Category>[] = [
     {
         id: "actions",
         cell: ({ row }) => {
-            const category = row.original
-            const [state, formAction] = useServerFormState(deleteCategory, null)
+            const product = row.original
+            const [state, formAction] = useServerFormState(deleteProduct, null)
             const router = useRouter();
 
             const onDelete = () => {
-                formAction(category.id);
+                formAction(product.id);
             }
             useEffect(() => {
                 if (state && state.success) {
@@ -92,7 +131,7 @@ export const categoryColumns: ColumnDef<Category>[] = [
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
                         <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                        <Link href={`/categories/${category.id}/edit`} >
+                        <Link href={`/products/${product.id}/edit`} >
                             <DropdownMenuItem className="cursor-pointer flex items-center gap-3">
                                 <Edit size={22} />
                                 <span>Edit</span>

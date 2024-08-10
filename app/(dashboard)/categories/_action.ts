@@ -5,9 +5,9 @@ import Api from "@/lib/api";
 import { getToken } from "@/lib/helper";
 import { notFound } from "next/navigation";
 
-export const getCategories = async (page: number) => {
+export const getCategories = async (page: number, limit: number = paginate_items_limit) => {
     const result = await Api.fetch({
-        uri: `/categories?limit=${paginate_items_limit}&page=${page}`,
+        uri: `/categories?limit=${limit}&page=${page}`,
         method: "GET",
     });
     return result.data;

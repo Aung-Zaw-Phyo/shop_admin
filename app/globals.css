@@ -55,3 +55,11 @@ body {
 .css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root {
   line-height: 1em !important;
 }
+
+.css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root {
+  line-height: 0em !important;
+}
+
+.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.MuiSelect-select {
+  min-height: 1em !important;
+}
