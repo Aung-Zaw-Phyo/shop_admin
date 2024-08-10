@@ -1,13 +1,12 @@
 "use server"
 
-import { IFormInput } from "@/components/templates/products/CreateForm";
 import { paginate_items_limit } from "@/constants";
 import Api from "@/lib/api";
 import { notFound } from "next/navigation";
 
-export const getProducts = async (page: number) => {
+export const getProducts = async (page: number, limit: number = paginate_items_limit) => {
     const result = await Api.fetch({
-        uri: `/products?limit=${paginate_items_limit}&page=${page}`,
+        uri: `/products?limit=${limit}&page=${page}`,
         method: "GET",
     });
     return result.data;
