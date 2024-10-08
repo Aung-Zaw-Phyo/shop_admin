@@ -9,7 +9,7 @@ import {
     DropdownMenuLabel,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { MoreHorizontal, ArrowUpDown, Edit, Trash } from "lucide-react"
+import { MoreHorizontal, ArrowUpDown, Edit, Trash, Eye } from "lucide-react"
 import Link from "next/link"
 import useServerFormState from "@/hooks/useServerFormState"
 import { useEffect } from "react"
@@ -131,6 +131,12 @@ export const productColumns: ColumnDef<Product>[] = [
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
                         <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                        <Link href={`/products/${product.id}`} >
+                            <DropdownMenuItem className="cursor-pointer flex items-center gap-3">
+                                <Eye size={22} />
+                                <span>View</span>
+                            </DropdownMenuItem>
+                        </Link>
                         <Link href={`/products/${product.id}/edit`} >
                             <DropdownMenuItem className="cursor-pointer flex items-center gap-3">
                                 <Edit size={22} />
