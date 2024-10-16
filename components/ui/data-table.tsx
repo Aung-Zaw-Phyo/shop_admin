@@ -30,8 +30,7 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { paginate_items_limit } from "@/constants"
-import Link from "next/link"
-import { redirect, usePathname, useRouter } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 
 
 interface Meta {
@@ -187,7 +186,7 @@ export function DataTable<TData, TValue>({
 
             <div className="flex items-center justify-between">
                 <div>
-                    Showing 1 to {meta.itemCount} of {meta.totalItems} entries
+                    Showing 1 to {meta.itemsPerPage} of {meta.totalItems} entries
                 </div>
                 <div className="flex items-center justify-end space-x-2 py-4">
                     <Button
