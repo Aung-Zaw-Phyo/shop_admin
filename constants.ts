@@ -1,1 +1,1 @@
-export const paginate_items_limit = 5;
+export const paginate_items_limit = 10;
