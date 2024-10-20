@@ -7,7 +7,7 @@ import { notFound } from "next/navigation";
 
 export const getCategories = async (page: number, limit: number = paginate_items_limit) => {
     const result = await Api.fetch({
-        uri: `/categories?limit=${limit}&page=${page}`,
+        uri: `/admin/categories?limit=${limit}&page=${page}`,
         method: "GET",
     });
     return result.data;
@@ -15,7 +15,7 @@ export const getCategories = async (page: number, limit: number = paginate_items
 
 export const getCategory = async (categoryId: number) => {
     const result = await Api.fetch({
-        uri: `/categories/${categoryId}`,
+        uri: `/admin/categories/${categoryId}`,
         method: "GET",
     });
     if(result.success === false) {
@@ -30,7 +30,7 @@ export const updateCategory = async (previousState: any, formData: FormData) => 
         name: formData.get('name'),
     }
     const result = await Api.fetch({
-        uri: `/categories/${categoryId}`,
+        uri: `/admin/categories/${categoryId}`,
         method: "PUT",
         headers: {
             Authorization: "Bearer " + getToken(),
@@ -45,7 +45,7 @@ export const createCategory = async (previousState: any, formData: FormData) => 
         name: formData.get('name'),
     }
     const result = await Api.fetch({
-        uri: `/categories`,
+        uri: `/admin/categories`,
         method: "POST",
         headers: {
             Authorization: "Bearer " + getToken(),
@@ -57,7 +57,7 @@ export const createCategory = async (previousState: any, formData: FormData) => 
 
 export const deleteCategory = async (previousState: any, categoryId: number) => {
     const result = await Api.fetch({
-        uri: `/categories/${categoryId}`,
+        uri: `/admin/categories/${categoryId}`,
         method: "DELETE",
         headers: {
             Authorization: "Bearer " + getToken(),

@@ -4,7 +4,7 @@ import Api from "@/lib/api";
 
 export const getProducts = async () => {
     const result = await Api.fetch({
-        uri: `/products`,
+        uri: `/admin/products`,
         method: "GET",
     });
     return result.data;
@@ -12,7 +12,7 @@ export const getProducts = async () => {
 
 export const getCategories = async () => {
     const result = await Api.fetch({
-        uri: `/categories`,
+        uri: `/admin/categories`,
         method: "GET",
     });
     return result.data;
@@ -20,7 +20,7 @@ export const getCategories = async () => {
 
 export const getVariants = async () => {
     const result = await Api.fetch({
-        uri: `/variants`,
+        uri: `/admin/variants`,
         method: "GET",
     });
     return result.data;
@@ -36,7 +36,7 @@ export const getOrders = async () => {
 
 export const getUsers = async () => {
     const result = await Api.fetch({
-        uri: `/users?limit=${5}`,
+        uri: `/admin/users?limit=${5}`,
         method: "GET",
     });
     return result.data;

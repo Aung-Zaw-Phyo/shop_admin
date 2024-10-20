@@ -46,9 +46,9 @@ export default async function Home() {
                                 <Table sx={{ minWidth: 250 }} >
                                     <TableHead>
                                         <TableRow>
+                                            <TableCell>Profile</TableCell>
                                             <TableCell>Name</TableCell>
                                             <TableCell >email</TableCell>
-                                            <TableCell align='right'>Profile</TableCell>
                                         </TableRow>
                                     </TableHead>
                                     <TableBody>
@@ -57,11 +57,11 @@ export default async function Home() {
                                                 key={user.id}
                                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                             >
+                                                <TableCell><img src={user.image} width={60} className="rounded-full" alt="User Image" /></TableCell>
                                                 <TableCell component="th" scope="row">
                                                     {user.name}
                                                 </TableCell>
                                                 <TableCell >{user.email}</TableCell>
-                                                <TableCell className='flex justify-end'><img src={user.image} width={60} className="rounded-full" alt="User Image" /></TableCell>
                                             </TableRow>
                                         ))}
                                         <TableRow>

@@ -7,7 +7,7 @@ import { notFound } from "next/navigation";
 
 export const getVariants = async (page: number) => {
     const result = await Api.fetch({
-        uri: `/variants?limit=${paginate_items_limit}&page=${page}`,
+        uri: `/admin/variants?limit=${paginate_items_limit}&page=${page}`,
         method: "GET",
     });
     return result.data;
@@ -15,7 +15,7 @@ export const getVariants = async (page: number) => {
 
 export const getVariant = async (variantId: number) => {
     const result = await Api.fetch({
-        uri: `/variants/${variantId}`,
+        uri: `/admin/variants/${variantId}`,
         method: "GET",
     });
     if(result.success === false) {
@@ -33,7 +33,7 @@ export const updateVariant = async (previousState: any, formData: FormData) => {
         productId: formData.get('productId'),
     }
     const result = await Api.fetch({
-        uri: `/variants/${variantId}`,
+        uri: `/admin/variants/${variantId}`,
         method: "PUT",
         payload: payload,
     });
@@ -48,7 +48,7 @@ export const createVariant = async (previousState: any, formData: FormData) => {
         productId: formData.get('productId'),
     }
     const result = await Api.fetch({
-        uri: `/variants`,
+        uri: `/admin/variants`,
         method: "POST",
         payload: payload,
     });
@@ -57,7 +57,7 @@ export const createVariant = async (previousState: any, formData: FormData) => {
 
 export const deleteVariant = async (previousState: any, categoryId: number) => {
     const result = await Api.fetch({
-        uri: `/variants/${categoryId}`,
+        uri: `/admin/variants/${categoryId}`,
         method: "DELETE",
     });
     return result;

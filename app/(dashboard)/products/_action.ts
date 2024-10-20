@@ -6,7 +6,7 @@ import { notFound } from "next/navigation";
 
 export const getProducts = async (page: number, limit: number = paginate_items_limit) => {
     const result = await Api.fetch({
-        uri: `/products?limit=${limit}&page=${page}`,
+        uri: `/admin/products?limit=${limit}&page=${page}`,
         method: "GET",
     });
     return result.data;
@@ -14,7 +14,7 @@ export const getProducts = async (page: number, limit: number = paginate_items_l
 
 export const getProduct = async (userId: number) => {
     const result = await Api.fetch({
-        uri: `/products/${userId}`,
+        uri: `/admin/products/${userId}`,
         method: "GET",
     });
     if(result.success === false) {
@@ -26,7 +26,7 @@ export const getProduct = async (userId: number) => {
 export const updateProduct = async (previousState: any, formData: FormData) => {
     const productId = formData.get('productId');
     const result = await Api.fetch({
-        uri: `/products/${productId}`,
+        uri: `/admin/products/${productId}`,
         method: "PUT",
         payload: formData,
     });
@@ -35,7 +35,7 @@ export const updateProduct = async (previousState: any, formData: FormData) => {
 
 export const createProduct = async (previousState: any, formData: FormData) => {
     const result = await Api.fetch({
-        uri: `/products`,
+        uri: `/admin/products`,
         method: "POST",
         payload: formData,
     });
@@ -44,7 +44,7 @@ export const createProduct = async (previousState: any, formData: FormData) => {
 
 export const deleteProduct = async (previousState: any, productId: number) => {
     const result = await Api.fetch({
-        uri: `/products/${productId}`,
+        uri: `/admin/products/${productId}`,
         method: "DELETE",
     });
     return result;
